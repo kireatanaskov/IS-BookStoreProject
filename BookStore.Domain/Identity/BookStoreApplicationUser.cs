@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BookStore.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 
-namespace BookStore.Web.Models
+namespace BookStore.Domain.Identity
 {
     public class BookStoreApplicationUser : IdentityUser
     {

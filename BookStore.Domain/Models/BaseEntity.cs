@@ -1,4 +1,4 @@
-﻿namespace BookStore.Web.Models
+﻿namespace BookStore.Domain.Models
 {
     public class BaseEntity
     {

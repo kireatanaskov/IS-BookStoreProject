@@ -3,13 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Web", "BookStore.Web\BookStore.Web.csproj", "{8CF73053-1B9B-46C4-943A-E9118EA23770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Web", "BookStore.Web\BookStore.Web.csproj", "{8CF73053-1B9B-46C4-943A-E9118EA23770}"
+	ProjectSection(ProjectDependencies) = postProject
+		{791947E1-4244-47FB-B3E1-83EDD0A6F554} = {791947E1-4244-47FB-B3E1-83EDD0A6F554}
+		{88837A95-4326-4136-A57A-5C1A817ED701} = {88837A95-4326-4136-A57A-5C1A817ED701}
+		{B712D55E-AC4F-4A6E-BDDB-333B62DB665E} = {B712D55E-AC4F-4A6E-BDDB-333B62DB665E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Domain", "BookStore.Domain\BookStore.Domain.csproj", "{88837A95-4326-4136-A57A-5C1A817ED701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Domain", "BookStore.Domain\BookStore.Domain.csproj", "{88837A95-4326-4136-A57A-5C1A817ED701}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Service", "BookStore.Service\BookStore.Service.csproj", "{791947E1-4244-47FB-B3E1-83EDD0A6F554}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Service", "BookStore.Service\BookStore.Service.csproj", "{791947E1-4244-47FB-B3E1-83EDD0A6F554}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88837A95-4326-4136-A57A-5C1A817ED701} = {88837A95-4326-4136-A57A-5C1A817ED701}
+		{B712D55E-AC4F-4A6E-BDDB-333B62DB665E} = {B712D55E-AC4F-4A6E-BDDB-333B62DB665E}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookStore.Repository", "BookStore.Repository\BookStore.Repository.csproj", "{B712D55E-AC4F-4A6E-BDDB-333B62DB665E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStore.Repository", "BookStore.Repository\BookStore.Repository.csproj", "{B712D55E-AC4F-4A6E-BDDB-333B62DB665E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{88837A95-4326-4136-A57A-5C1A817ED701} = {88837A95-4326-4136-A57A-5C1A817ED701}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

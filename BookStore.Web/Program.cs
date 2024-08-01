@@ -1,7 +1,7 @@
-using BookStore.Web.Data;
-using BookStore.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using BookStore.Repository;
+using BookStore.Domain.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

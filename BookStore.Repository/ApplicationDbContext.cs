@@ -1,8 +1,9 @@
-﻿using BookStore.Web.Models;
+﻿using BookStore.Domain.Identity;
+using BookStore.Domain.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookStore.Web.Data
+namespace BookStore.Repository
 {
     public class ApplicationDbContext : IdentityDbContext<BookStoreApplicationUser>
     {

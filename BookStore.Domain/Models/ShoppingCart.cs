@@ -1,4 +1,6 @@
-﻿namespace BookStore.Web.Models
+﻿using BookStore.Domain.Identity;
+
+namespace BookStore.Domain.Models
 {
     public class ShoppingCart : BaseEntity
     {
