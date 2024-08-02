@@ -10,22 +10,23 @@ using BookStore.Repository;
 
 namespace BookStore.Web.Controllers
 {
-    public class PublishersController : Controller
+    public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public PublishersController(ApplicationDbContext context)
+        public BooksController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Publishers
+        // GET: Books
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Publishers.ToListAsync());
+            var applicationDbContext = _context.Books.Include(b => b.Author).Include(b => b.Publisher);
+            return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Publishers/Details/5
+        // GET: Books/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -33,40 +34,46 @@ namespace BookStore.Web.Controllers
                 return NotFound();
             }
 
-            var publisher = await _context.Publishers
+            var book = await _context.Books
+                .Include(b => b.Author)
+                .Include(b => b.Publisher)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (publisher == null)
+            if (book == null)
             {
                 return NotFound();
             }
 
-            return View(publisher);
+            return View(book);
         }
 
-        // GET: Publishers/Create
+        // GET: Books/Create
         public IActionResult Create()
         {
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Country");
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Address");
             return View();
         }
 
-        // POST: Publishers/Create
+        // POST: Books/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Country,Address,Id")] Publisher publisher)
+        public async Task<IActionResult> Create([Bind("Name,Description,Image,Price,AuthorId,PublisherId,Id")] Book book)
         {
             if (ModelState.IsValid)
             {
-                publisher.Id = Guid.NewGuid();
-                _context.Add(publisher);
+                book.Id = Guid.NewGuid();
+                _context.Add(book);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(publisher);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Country", book.AuthorId);
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Address", book.PublisherId);
+            return View(book);
         }
 
-        // GET: Publishers/Edit/5
+        // GET: Books/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -74,22 +81,24 @@ namespace BookStore.Web.Controllers
                 return NotFound();
             }
 
-            var publisher = await _context.Publishers.FindAsync(id);
-            if (publisher == null)
+            var book = await _context.Books.FindAsync(id);
+            if (book == null)
             {
                 return NotFound();
             }
-            return View(publisher);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Country", book.AuthorId);
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Address", book.PublisherId);
+            return View(book);
         }
 
-        // POST: Publishers/Edit/5
+        // POST: Books/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Country,Address,Id")] Publisher publisher)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Description,Image,Price,AuthorId,PublisherId,Id")] Book book)
         {
-            if (id != publisher.Id)
+            if (id != book.Id)
             {
                 return NotFound();
             }
@@ -98,12 +107,12 @@ namespace BookStore.Web.Controllers
             {
                 try
                 {
-                    _context.Update(publisher);
+                    _context.Update(book);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PublisherExists(publisher.Id))
+                    if (!BookExists(book.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +123,12 @@ namespace BookStore.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(publisher);
+            ViewData["AuthorId"] = new SelectList(_context.Authors, "Id", "Country", book.AuthorId);
+            ViewData["PublisherId"] = new SelectList(_context.Publishers, "Id", "Address", book.PublisherId);
+            return View(book);
         }
 
-        // GET: Publishers/Delete/5
+        // GET: Books/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -125,34 +136,36 @@ namespace BookStore.Web.Controllers
                 return NotFound();
             }
 
-            var publisher = await _context.Publishers
+            var book = await _context.Books
+                .Include(b => b.Author)
+                .Include(b => b.Publisher)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (publisher == null)
+            if (book == null)
             {
                 return NotFound();
             }
 
-            return View(publisher);
+            return View(book);
         }
 
-        // POST: Publishers/Delete/5
+        // POST: Books/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var publisher = await _context.Publishers.FindAsync(id);
-            if (publisher != null)
+            var book = await _context.Books.FindAsync(id);
+            if (book != null)
             {
-                _context.Publishers.Remove(publisher);
+                _context.Books.Remove(book);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PublisherExists(Guid id)
+        private bool BookExists(Guid id)
         {
-            return _context.Publishers.Any(e => e.Id == id);
+            return _context.Books.Any(e => e.Id == id);
         }
     }
 }
