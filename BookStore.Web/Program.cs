@@ -2,6 +2,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using BookStore.Repository;
 using BookStore.Domain.Identity;
+using BookStore.Repository.Interface;
+using BookStore.Repository.Implementation;
+using BookStore.Service.Interface;
+using BookStore.Service.Implementation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +18,13 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<BookStoreApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+
+builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IAuthorService, AuthorService>();
+builder.Services.AddTransient<IPublisherService, PublisherService>();
 
 var app = builder.Build();
 

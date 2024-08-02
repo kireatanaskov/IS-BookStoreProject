@@ -16,8 +16,8 @@ namespace BookStore.Repository
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+        : base(options)
+    {
+    }
     }
 }
