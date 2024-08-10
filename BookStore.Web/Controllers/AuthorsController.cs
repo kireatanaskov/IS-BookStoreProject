@@ -7,38 +7,32 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookStore.Domain.Models;
 using BookStore.Repository;
+using BookStore.Service.Interface;
 
 namespace BookStore.Web.Controllers
 {
     public class AuthorsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IAuthorService _authorService;
 
-        public AuthorsController(ApplicationDbContext context)
+        public AuthorsController(IAuthorService authorService)
         {
-            _context = context;
+            _authorService = authorService;
         }
 
         // GET: Authors
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Authors.ToListAsync());
+            return View(_authorService.GetAllAuthors());
         }
 
-        // GET: Authors/Details/5
+        // GET: Authors/Details/1
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (author == null)
-            {
-                return NotFound();
-            }
+            var author = _authorService.GetDetailsForAuthor(id);
+            if (author == null) return NotFound();
 
             return View(author);
         }
@@ -50,109 +44,76 @@ namespace BookStore.Web.Controllers
         }
 
         // POST: Authors/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("FirstName,LastName,Age,Country,Image,Id")] Author author)
+        public IActionResult Create([Bind("FirstName,LastName,Age,Country,Image,Id")] Author author)
         {
             if (ModelState.IsValid)
             {
                 author.Id = Guid.NewGuid();
-                _context.Add(author);
-                await _context.SaveChangesAsync();
+                _authorService.CreateAuthor(author);
                 return RedirectToAction(nameof(Index));
             }
             return View(author);
         }
 
-        // GET: Authors/Edit/5
-        public async Task<IActionResult> Edit(Guid? id)
+        // GET: Authors/Edit/1
+        public IActionResult Edit(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var author = await _context.Authors.FindAsync(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-            return View(author);
+            var product = _authorService.GetDetailsForAuthor(id);
+            if (product == null) return NotFound();
+
+            return View(product);
         }
 
-        // POST: Authors/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Authors/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("FirstName,LastName,Age,Country,Image,Id")] Author author)
+        public IActionResult Edit(Guid id, [Bind("FirstName,LastName,Age,Country,Image,Id")] Author author)
         {
-            if (id != author.Id)
-            {
-                return NotFound();
-            }
+            if (id != author.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(author);
-                    await _context.SaveChangesAsync();
+                    _authorService.UpdateAuthor(author);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!AuthorExists(author.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
             return View(author);
         }
 
-        // GET: Authors/Delete/5
-        public async Task<IActionResult> Delete(Guid? id)
+        // GET: Authors/Delete/1
+        public IActionResult Delete(Guid? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var author = await _context.Authors
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (author == null)
-            {
-                return NotFound();
-            }
+            var author = _authorService.GetDetailsForAuthor(id);
+            if (author == null) return NotFound();
 
             return View(author);
         }
 
-        // POST: Authors/Delete/5
+        // POST: Authors/Delete/1
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
-            var author = await _context.Authors.FindAsync(id);
-            if (author != null)
-            {
-                _context.Authors.Remove(author);
-            }
-
-            await _context.SaveChangesAsync();
+            _authorService.DeleteAuthor(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool AuthorExists(Guid id)
         {
-            return _context.Authors.Any(e => e.Id == id);
+            return _authorService.GetAllAuthors()
+                .Any(e => e.Id == id);
         }
     }
 }
