@@ -25,7 +25,7 @@ namespace BookStore.Service.Implementation
 
         public void DeletePublisher(Guid? id)
         {
-            this._publisherRepository.Delete(this._publisherRepository.Get(id));
+            this._publisherRepository.Delete(this._publisherRepository.GetById(id));
         }
 
         public List<Publisher> GetAllPublishers()
@@ -33,9 +33,9 @@ namespace BookStore.Service.Implementation
             return this._publisherRepository.GetAll().ToList();
         }
 
-        public Publisher GetDetailsForPublisher(Guid? id)
+        public Publisher GetPublisher(Guid? id)
         {
-            return this._publisherRepository.Get(id);
+            return this._publisherRepository.GetById(id);
         }
 
         public void UpdatePublisher(Publisher publisher)

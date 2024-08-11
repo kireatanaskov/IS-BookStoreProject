@@ -32,7 +32,7 @@ namespace BookStore.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var publisher = _publisherService.GetDetailsForPublisher(id);
+            var publisher = _publisherService.GetPublisher(id);
             if (publisher == null) return NotFound();
 
             return View(publisher);
@@ -63,7 +63,7 @@ namespace BookStore.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var publisher = _publisherService.GetDetailsForPublisher(id);
+            var publisher = _publisherService.GetPublisher(id);
             if (publisher == null) return NotFound();
 
             return View(publisher);
@@ -96,7 +96,7 @@ namespace BookStore.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var publisher = _publisherService.GetDetailsForPublisher(id);
+            var publisher = _publisherService.GetPublisher(id);
             if (publisher == null) return NotFound();
 
             return View(publisher);

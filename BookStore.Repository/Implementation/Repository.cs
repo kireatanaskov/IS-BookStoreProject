@@ -25,7 +25,7 @@ namespace BookStore.Repository.Implementation
             return this.entities.AsEnumerable();
         }
 
-        public T Get(Guid? id)
+        public T GetById(Guid? id)
         {
             return entities.First(e => e.Id == id);
         }

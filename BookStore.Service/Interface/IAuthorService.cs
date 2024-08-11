@@ -10,7 +10,7 @@ namespace BookStore.Service.Interface
     public interface IAuthorService
     {
         List<Author> GetAllAuthors();
-        Author GetDetailsForAuthor(Guid? id);
+        Author GetAuthor(Guid? id);
         void CreateAuthor(Author author);
         void UpdateAuthor(Author author);
         void DeleteAuthor(Guid? id);

@@ -11,36 +11,32 @@ namespace BookStore.Service.Implementation
 {
     public class BookService : IBookService
     {
-        private readonly IRepository<Book> _bookRepository;
-        private readonly IRepository<BookInShoppingCart> _bookInShoppingCartRepository;
-        private readonly IUserRepository _userRepository;
+        private readonly IBookRepository _bookRepository;
 
-        public BookService(IRepository<Book> bookRepository, IRepository<BookInShoppingCart> bookInShoppingCartRepository, IUserRepository userRepository)
+        public BookService(IBookRepository bookRepository)
         {
             _bookRepository = bookRepository;
-            _bookInShoppingCartRepository = bookInShoppingCartRepository;
-            _userRepository = userRepository;
         }
 
         public void CreateBook(Book b)
         {
-            _bookRepository.Insert(b);
+            this._bookRepository.Insert(b);
         }
 
         public void DeleteBook(Guid? id)
         {
-            var book = _bookRepository.Get(id);
+            var book = _bookRepository.GetBookById(id);
             _bookRepository.Delete(book);
         }
 
         public List<Book> GetAllBooks()
         {
-            return _bookRepository.GetAll().ToList();
+            return _bookRepository.GetAllBooks().ToList();
         }
 
         public Book GetDetailsForBook(Guid? id)
         {
-            var book = _bookRepository.Get(id);
+            var book = _bookRepository.GetBookById(id);
             return book;
         }
 

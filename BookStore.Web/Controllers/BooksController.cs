@@ -48,12 +48,15 @@ namespace BookStore.Web.Controllers
             return View(_bookService.GetAllBooks());
         }
 
-        public async Task<IActionResult> Details(Guid? id)
+        public IActionResult Details(Guid? id)
         {
-            if (id == null) return NotFound();
+            if (id == null) 
+                return NotFound();
 
             var book = _bookService.GetDetailsForBook(id);
-            if (book == null) return NotFound();
+            
+            if (book == null) 
+                return NotFound();
 
             return View(book);
         }
@@ -71,6 +74,8 @@ namespace BookStore.Web.Controllers
             if (ModelState.IsValid)
             {
                 book.Id = Guid.NewGuid();
+                book.Author = _authorService.GetAuthor(book.AuthorId);
+                book.Publisher = _publisherService.GetPublisher(book.PublisherId);
                 _bookService.CreateBook(book);
                 return RedirectToAction(nameof(Index));
             }

@@ -31,7 +31,7 @@ namespace BookStore.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var author = _authorService.GetDetailsForAuthor(id);
+            var author = _authorService.GetAuthor(id);
             if (author == null) return NotFound();
 
             return View(author);
@@ -62,10 +62,11 @@ namespace BookStore.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var product = _authorService.GetDetailsForAuthor(id);
-            if (product == null) return NotFound();
+            var author = _authorService.GetAuthor(id);
+            if (author == null) 
+                return NotFound();
 
-            return View(product);
+            return View(author);
         }
 
         // POST: Authors/Edit/1
@@ -95,8 +96,9 @@ namespace BookStore.Web.Controllers
         {
             if (id == null) return NotFound();
 
-            var author = _authorService.GetDetailsForAuthor(id);
-            if (author == null) return NotFound();
+            var author = _authorService.GetAuthor(id);
+            if (author == null) 
+                return NotFound();
 
             return View(author);
         }
