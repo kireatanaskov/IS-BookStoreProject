@@ -30,15 +30,7 @@ namespace BookStore.Web.Controllers
 
         private void PopulateDropdowns()
         {
-            //var authors = _authorService.GetAllAuthors()
-            //    .Select(a => new AuthorViewModel
-            //    {
-            //        Id = a.Id,
-            //        FullName = a.FirstName + " " + a.LastName
-            //    })
-            //    .ToList();
-
-            ViewData["AuthorId"] = new SelectList(_authorService.GetAllAuthors(), "Id", "FirstName");
+            ViewData["AuthorId"] = new SelectList(_authorService.GetAllAuthors().Select(a => new { a.Id, FullName = a.FirstName + " " + a.LastName }), "Id", "FullName");
             ViewData["PublisherId"] = new SelectList(_publisherService.GetAllPublishers(), "Id", "Name");
         }
 
