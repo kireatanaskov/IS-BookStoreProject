@@ -9,6 +9,7 @@ using BookStore.Domain.Models;
 using BookStore.Repository;
 using BookStore.Service.Interface;
 using System.Security.Claims;
+using Stripe;
 
 namespace BookStore.Web.Controllers
 {
@@ -35,12 +36,53 @@ namespace BookStore.Web.Controllers
             return RedirectToAction("Index", "ShoppingCarts");
         }
 
-        public IActionResult Order()
+        public Boolean OrderNow()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? null;
-            var result = _shoppingCartService.Order(userId ?? "");
+            var result = _shoppingCartService.Order(userId);
 
-            return RedirectToAction("Index", "ShoppingCarts");
+            return result;
+        }
+
+        public IActionResult PayOrder(string stripeEmail, string stripeToken)
+        {
+            var customerService = new CustomerService();
+            var chargeService = new ChargeService();
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            StripeConfiguration.ApiKey =
+                "sk_test_51Io84IHBiOcGzrvu4sxX66rTHq8r5nxIxRiJPbOHB4NwVJOE1jSlxgYe741ITs024uXhtpBFtxm3RoCZc3kafocC00IhvgxkL0";
+
+            var order = this._shoppingCartService.GetShoppingCartInfo(userId);
+
+            var customer = customerService.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                Source = stripeToken
+            });
+
+            var charge = chargeService.Create(new ChargeCreateOptions
+            {
+                Amount = (Convert.ToInt32(order.TotalPrice) * 100),
+                Description = "Book Store Payment",
+                Currency = "usd",
+                Customer = customer.Id
+            });
+
+            if (charge.Status == "succeeded")
+            {
+                this.OrderNow();
+                return RedirectToAction("SuccessPayment");
+
+            }
+            else
+            {
+                return RedirectToAction("NotsuccessPayment");
+            }
+        }
+
+        public IActionResult SuccessPayment()
+        {
+            return View();
         }
     }
 }
