@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BookStoreAdminApplication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dccb48ca50c84c230d6739c6008fa123dfe898e9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8d98a283f4035df87528e4f4d4e8210145fd6736")]
 [assembly: System.Reflection.AssemblyProductAttribute("BookStoreAdminApplication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BookStoreAdminApplication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
