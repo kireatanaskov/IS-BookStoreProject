@@ -24,7 +24,7 @@ namespace BookStore.Repository.Implementation
         {
             return entities
                 .Include(z => z.BooksInOrder)
-                //.Include(z => z.Owner)
+                .Include(z => z.Owner)
                 .Include("BooksInOrder.Book")
                 .ToList();
         }
@@ -33,7 +33,7 @@ namespace BookStore.Repository.Implementation
         {
             return entities
                 .Include(z => z.BooksInOrder)
-                //.Include(z => z.Owner)
+                .Include(z => z.Owner)
                 .Include("BooksInOrder.Book")
                 .SingleOrDefaultAsync(z => z.Id == id.Id).Result;
         }

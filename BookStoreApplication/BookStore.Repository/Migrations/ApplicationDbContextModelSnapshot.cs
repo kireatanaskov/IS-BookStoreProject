@@ -216,7 +216,7 @@ namespace BookStore.Repository.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("BookStoreApplicationUserId")
+                    b.Property<string>("OwnerId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("userId")
@@ -225,7 +225,7 @@ namespace BookStore.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BookStoreApplicationUserId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Orders");
                 });
@@ -463,9 +463,11 @@ namespace BookStore.Repository.Migrations
 
             modelBuilder.Entity("BookStore.Domain.Models.Order", b =>
                 {
-                    b.HasOne("BookStore.Domain.Identity.BookStoreApplicationUser", null)
+                    b.HasOne("BookStore.Domain.Identity.BookStoreApplicationUser", "Owner")
                         .WithMany("Order")
-                        .HasForeignKey("BookStoreApplicationUserId");
+                        .HasForeignKey("OwnerId");
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("BookStore.Domain.Models.ShoppingCart", b =>
