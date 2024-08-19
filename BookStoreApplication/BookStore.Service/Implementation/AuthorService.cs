@@ -11,9 +11,9 @@ namespace BookStore.Service.Implementation
 {
     public class AuthorService : IAuthorService
     {
-        private readonly IRepository<Author> _authorRepository;
+        private readonly IAuthorRepository _authorRepository;
 
-        public AuthorService(IRepository<Author> authorRepository)
+        public AuthorService(IAuthorRepository authorRepository)
         {
             _authorRepository = authorRepository;
         }
@@ -25,18 +25,18 @@ namespace BookStore.Service.Implementation
 
         public void DeleteAuthor(Guid? id)
         {
-            Author author = this._authorRepository.GetById(id);
+            Author author = this._authorRepository.GetAuthorById(id);
             this._authorRepository.Delete(author);
         }
 
         public List<Author> GetAllAuthors()
         {
-            return this._authorRepository.GetAll().ToList();
+            return this._authorRepository.GetAllAuthors().ToList();
         }
 
         public Author GetAuthor(Guid? id)
         {
-            return this._authorRepository.GetById(id);
+            return this._authorRepository.GetAuthorById(id);
         }
 
         public void UpdateAuthor(Author author)

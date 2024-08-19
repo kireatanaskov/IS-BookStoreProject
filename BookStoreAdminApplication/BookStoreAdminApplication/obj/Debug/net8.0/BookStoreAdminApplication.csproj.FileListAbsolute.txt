@@ -106,3 +106,10 @@ C:\Users\kirea\Desktop\New folder\finki\IS-BookStoreProject\BookStoreAdminApplic
 C:\Users\kirea\Desktop\New folder\finki\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\Irony.dll
 C:\Users\kirea\Desktop\New folder\finki\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\System.IO.Packaging.dll
 C:\Users\kirea\Desktop\New folder\finki\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\XLParser.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\ClosedXML.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\DocumentFormat.OpenXml.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\ExcelNumberFormat.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\Irony.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\System.IO.Packaging.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\XLParser.dll
+C:\Users\Todor\Desktop\finki s3\sem 6\is\project\IS-BookStoreProject\BookStoreAdminApplication\BookStoreAdminApplication\bin\Debug\net8.0\ExcelDataReader.dll

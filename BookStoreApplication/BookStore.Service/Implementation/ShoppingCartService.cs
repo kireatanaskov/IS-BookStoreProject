@@ -83,7 +83,7 @@ namespace BookStore.Service.Implementation
             {
                 Id = Guid.NewGuid(),
                 userId = userId,
-                //Owner = loggedInUser
+                Owner = loggedInUser
             };
 
             _orderRepository.Insert(order);

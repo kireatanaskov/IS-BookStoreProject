@@ -17,7 +17,7 @@ namespace BookStoreAdminApplication.Controllers
         public IActionResult Index()
         {
             HttpClient client = new HttpClient();
-            string URL = "https://localhost:44351/api/Admin/GetAllOrders";
+            string URL = "https://localhost:7128/api/Admin/GetAllOrders";
 
             HttpResponseMessage response = client.GetAsync(URL).Result;
             var data = response.Content.ReadAsAsync<List<Order>>().Result;
@@ -28,7 +28,7 @@ namespace BookStoreAdminApplication.Controllers
         {
             HttpClient httpClient = new HttpClient();
 
-            string URL = "https://localhost:44351/api/Admin/GetDetails";
+            string URL = "https://localhost:7128/api/Admin/GetDetails";
 
             var model = new
             {
@@ -57,7 +57,7 @@ namespace BookStoreAdminApplication.Controllers
                 worksheet.Cell(1, 2).Value = "Customer UserName";
                 worksheet.Cell(1, 3).Value = "Total Price";
                 HttpClient client = new HttpClient();
-                string URL = "https://localhost:44351/api/Admin/GetAllOrders";
+                string URL = "https://localhost:7128/api/Admin/GetAllOrders";
 
                 HttpResponseMessage response = client.GetAsync(URL).Result;
                 var data = response.Content.ReadAsAsync<List<Order>>().Result;
