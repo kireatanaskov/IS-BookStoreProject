@@ -44,6 +44,43 @@ namespace BookStoreAdminApplication.Controllers
             return View(result);
         }
 
+        public FileContentResult CreateInvoice(string id)
+        {
+            HttpClient client = new HttpClient();
+
+            string URL = "https://localhost:7128/api/Admin/GetDetails";
+            var model = new
+            {
+                Id = id
+            };
+
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync(URL, content).Result;
+
+            var result = response.Content.ReadAsAsync<Order>().Result;
+
+            var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Invoice.docx");
+            var document = DocumentModel.Load(templatePath);
+
+            document.Content.Replace("{{OrderNumber}}", result.Id.ToString());
+            document.Content.Replace("{{UserName}}", result.Owner.UserName);
+
+            StringBuilder sb = new StringBuilder();
+            var total = 0;
+            foreach (var item in result.BooksInOrder)
+            {
+                sb.AppendLine("Book: " + item.Book.Name + ", has quantity " + item.Quantity + " with price $" + item.Book.Price);
+                total += (item.Quantity * (int) item.Book.Price);
+            }
+            document.Content.Replace("{{BookList}}", sb.ToString());
+            document.Content.Replace("{{TotalPrice}}", "$" + total.ToString());
+
+            var stream = new MemoryStream();
+            document.Save(stream, new PdfSaveOptions());
+            return File(stream.ToArray(), new PdfSaveOptions().ContentType, "ExportedInvoice.pdf");
+        }
+
         [HttpGet]
         public FileContentResult ExportAllOrders()
         {
