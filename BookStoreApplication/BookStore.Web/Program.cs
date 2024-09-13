@@ -7,6 +7,10 @@ using BookStore.Repository.Implementation;
 using BookStore.Service.Interface;
 using BookStore.Service.Implementation;
 using BookStore.Domain.Models;
+using BookStore.Repository.Interface.MusicApp;
+using BookStore.Repository.Implementation.MusicApp;
+using BookStore.Service.Interface.MusicApp;
+using BookStore.Service.Implementation.MusicApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,14 +33,14 @@ builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
 builder.Services.AddScoped(typeof(IBookRepository), typeof(BookRepository));
 builder.Services.AddScoped(typeof(IOrderRepository), typeof(OrderRepository));
 builder.Services.AddScoped(typeof(IAuthorRepository), typeof(AuthorRepository));
-builder.Services.AddScoped(typeof(IArtistRepository), typeof(ArtistRepository));
+builder.Services.AddScoped(typeof(ITrackRepository), typeof(TrackRepository));
 
 builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IAuthorService, AuthorService>();
 builder.Services.AddTransient<IPublisherService, PublisherService>();
 builder.Services.AddTransient<IShoppingCartService, ShoppingCartService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
-builder.Services.AddTransient<IArtistService, ArtistService>();
+builder.Services.AddTransient<ITrackService, TrackService>();
 
 builder.Services.Configure<StripeSettings>(builder.Configuration.GetSection("Stripe"));
 builder.Services.AddControllersWithViews().AddNewtonsoftJson(options =>
