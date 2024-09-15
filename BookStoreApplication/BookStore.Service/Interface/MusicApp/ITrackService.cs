@@ -9,6 +9,6 @@ namespace BookStore.Service.Interface.MusicApp
 {
     public interface ITrackService
     {
-        List<Track> GetAllTracks();
+        List<Track> GetAllTransformedTracks();
     }
 }

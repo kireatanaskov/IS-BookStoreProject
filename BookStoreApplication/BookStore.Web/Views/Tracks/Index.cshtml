@@ -18,7 +18,7 @@
 </div>
 
 <div id="cardView" class="container">
-    @for(int i=0;i < Model.Count(); i++)
+    @for(int i = 0; i < Model.Count(); i++)
     {
         var item = Model.ElementAt(i);
 
@@ -35,12 +35,12 @@
                     <p class="card-text">@item.Duration</p>
                     <p class="card-text">@item.Album.Title</p>
                     <p class="card-text">@item.Artist.Name</p>
-                    <h6>Price: @item.Price</h6>
+                    <h6>Price: $@item.Price</h6>
                 </div>
             </div>
         </div>
 
-        if(i % 3 == 2)
+        if(i % 3 == 2 || i == Model.Count() - 1)
         {
             @:</div>
         }
@@ -51,11 +51,11 @@
     <table class="table">
         <thead>
             <tr>
-                <th>@Html.DisplayNameFor(model => model.Title)</th>
-                <th>@Html.DisplayNameFor(model => model.Duration)</th>
-                <th>@Html.DisplayNameFor(model => model.Album)</th>
-                <th>@Html.DisplayNameFor(model => model.Artist)</th>
-                <th>@Html.DisplayNameFor(model => model.Price)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Title)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Duration)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Album)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Artist)</th>
+                <th>@Html.DisplayNameFor(model => model.First().Price)</th>
             </tr>
         </thead>
         <tbody>
@@ -64,9 +64,9 @@
                 <tr>
                     <td>@Html.DisplayFor(modelItem => item.Title)</td>
                     <td>@Html.DisplayFor(modelItem => item.Duration)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Album.Title)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Artist.Name)</td>
-                    <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                    <td>@(item.Album != null ? Html.DisplayFor(modelItem => item.Album.Title) : "N/A")</td>
+                    <td>@(item.Artist != null ? Html.DisplayFor(modelItem => item.Artist.Name) : "N/A")</td>
+                    <td>$@Html.DisplayFor(modelItem => item.Price)</td>
                 </tr>
             }
         </tbody>

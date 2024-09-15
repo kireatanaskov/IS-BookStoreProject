@@ -14,7 +14,7 @@ namespace BookStore.Web.Controllers.MusicApp
 
         public IActionResult Index()
         {
-            return View(_trackService.GetAllTracks());
+            return View(_trackService.GetAllTransformedTracks());
         }
     }
 }

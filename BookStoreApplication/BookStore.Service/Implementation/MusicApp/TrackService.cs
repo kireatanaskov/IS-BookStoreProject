@@ -18,9 +18,35 @@ namespace BookStore.Service.Implementation.MusicApp
             _trackRepository = trackRepository;
         }
 
-        public List<Track> GetAllTracks()
+        public List<Track> GetAllTransformedTracks()
         {
-            return _trackRepository.GetAllTracks().ToList();
+            var extractedTracks = _trackRepository.GetAllTracks().ToList();
+
+            var transformedTracks = extractedTracks
+                .Select(track => new Track
+                {
+                    Title = track.Title,
+                    Duration = $"{track.Duration} ({GetSecondsFromDuration(track.Duration)} seconds)",
+                    Image = track.Image,
+                    AlbumId = track.AlbumId,
+                    ArtistId = track.ArtistId,
+                    Album = track.Album,
+                    Artist = track.Artist,
+                    Price = track.Price
+                })
+                .Where(track => track.Price > 0);
+
+            return transformedTracks.ToList();
+        }
+
+        public string GetSecondsFromDuration(string time)
+        {
+            string[] splitTime = time.Split(':');
+            int minutes = int.Parse(splitTime[0]);
+            int seconds = int.Parse(splitTime[1]);
+
+            seconds += minutes * 60;
+            return seconds.ToString();
         }
     }
 }
